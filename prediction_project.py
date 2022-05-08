@@ -380,7 +380,7 @@ st.write("After which, you can press the button below to see how much your house
 #--------Prediction------------#
 if st.button('Predict'):
     # Loading in our saved model
-    model = pickle.load(open('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/model/finalized_model.sav', 'rb')) 
+    model = pickle.load(open('https://www.dropbox.com/s/toogefk4yiecipn/finalized_model.sav?dl=0', 'rb')) 
     predicted_price = model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
