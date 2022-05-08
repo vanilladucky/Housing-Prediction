@@ -382,7 +382,13 @@ st.write("After which, you can press the button below to see how much your house
 #--------Prediction------------#
 if st.button('Predict'):
     # Loading in our saved model
-    model = cp.load(urlopen("https://www.dropbox.com/s/toogefk4yiecipn/finalized_model.sav?dl=0", 'rb')) 
+    data = urllib.parse.urlencode(d).encode("utf-8")
+    req = urllib.request.Request(https://www.dropbox.com/s/toogefk4yiecipn/finalized_model.sav?dl=0)
+    with urllib.request.urlopen(req,data=data) as f:
+        resp = f.read()
+    model = pickle.load(resp, 'rb')
+
+    # model = cp.load(urlopen("https://www.dropbox.com/s/toogefk4yiecipn/finalized_model.sav?dl=0", 'rb')) 
     predicted_price = model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
