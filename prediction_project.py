@@ -383,7 +383,7 @@ st.write("After which, you can press the button below to see how much your house
 if st.button('Predict'):
     # Loading in our saved model
     data = urllib.parse.urlencode(d).encode("utf-8")
-    req = urllib.request.Request(https://www.dropbox.com/s/toogefk4yiecipn/finalized_model.sav?dl=0)
+    req = urllib.request.Request("https://www.dropbox.com/s/toogefk4yiecipn/finalized_model.sav?dl=0")
     with urllib.request.urlopen(req,data=data) as f:
         resp = f.read()
     model = pickle.load(resp, 'rb')
