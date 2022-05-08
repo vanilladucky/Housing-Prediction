@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 import sklearn
 import numpy as np
-import urllib.request
+from urllib.request import urlopen
 import cloudpickle as cp
 
 train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
