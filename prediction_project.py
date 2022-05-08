@@ -4,8 +4,8 @@ import pickle
 import sklearn
 import numpy as np
 
-train = pd.read_csv('C:\\Users\\kimhy\\Downloads\\cleaned_train.csv')
-originaltrain = pd.read_csv('C:\\Users\\kimhy\\Downloads\\train.csv')
+train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
+originaltrain = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/external/train.csv')
 originaltrain.fillna('NaN', inplace=True)
 
 st.title("Predicting House Prices in Boston")
