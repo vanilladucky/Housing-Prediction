@@ -26,7 +26,7 @@ st.markdown("This dataset contains **1460** examples of **79** total features ea
 
 #----------------------------------Hyper Parameters------------------------------------------------#
 MSSubClass = st.sidebar.selectbox("Buildling Class", train['MSSubClass'].sort_values().unique())
-LotFrontage = st.sidebar.slider("Lot Frontage", train['LotFrontage'].min(), train['LotFrontage'].max())
+LotFrontage = st.sidebar.slider("Lot Frontage", float(train['LotFrontage'].min()), float(train['LotFrontage'].max()))
 LotArea = st.sidebar.slider("Lot Area", train['LotArea'].min(), train['LotArea'].max())
 OverallQual = st.sidebar.selectbox("Overall Quality", train['OverallQual'].sort_values().unique())
 OverallCond = st.sidebar.selectbox("Overall Condition", train['OverallCond'].sort_values().unique())
