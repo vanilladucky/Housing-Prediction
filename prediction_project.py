@@ -40,6 +40,8 @@ level0.append(('xgb', xgb.XGBRegressor(n_jobs=-1,
 level1 = LinearRegression()
 # define the stacking ensemble
 stacked_model = StackingRegressor(estimators=level0, final_estimator=level1)
+
+stacked_model.fit(train_fit,target_fit)
 #------------------Stacked Model----------------------#
 
 train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
@@ -417,7 +419,6 @@ st.write("After which, you can press the button below to see how much your house
 
 #--------Prediction------------#
 if st.button('Predict'):
-    stacked_model.fit(train_fit,target_fit)
     predicted_price = stacked_model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
