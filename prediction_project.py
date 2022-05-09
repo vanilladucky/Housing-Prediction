@@ -6,6 +6,35 @@ import numpy as np
 from urllib.request import urlopen
 import urllib
 import cloudpickle as cp
+from sklearn.ensemble import StackingRegressor
+from sklearn.neural_network import MLPClassifier
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+import xgb
+
+#------------------Stacked Model----------------------#
+
+base_models = [('random_forest', RandomForestRegressor(n_estimators = 400, 
+                                  max_depth=None, 
+                                  bootstrap = False,
+                                  max_features='sqrt',
+                                  min_samples_leaf = 1,
+                                  min_samples_split = 2,
+                                  n_jobs=-1)),
+               ('xgb', xgb.XGBRegressor(n_jobs=-1, 
+                            eta = 0.1, 
+                            gamma = 4, 
+                            max_depth = 4,
+                            min_child_weight = 2.5, 
+                            subsample=0.75))
+               ]
+meta_model = LinearRegression()
+stacking_model = StackingRegressor(estimators=base_models, 
+                                    final_estimator=meta_model, 
+                                    passthrough=True, 
+                                    cv=5,
+                                    verbose=2)
+#------------------Stacked Model----------------------#
 
 train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
 originaltrain = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/external/train.csv')
@@ -382,10 +411,7 @@ st.write("After which, you can press the button below to see how much your house
 
 #--------Prediction------------#
 if st.button('Predict'):
-    # Loading in our saved model
-    with open('finalized_model_pkl' , 'rb') as f: # Need Improvements here
-    model = pickle.load(f)
-    predicted_price = model.predict(np.array(features))
+    predicted_price = stacking_model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
 #--------Prediction------------#
