@@ -13,8 +13,10 @@ from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
 
 #------------------Importing Dataset------------------#
-train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
-target = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_target.csv')
+train_fit = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
+target_fit = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_target.csv')
+train_fit.drop('Unnamed: 0', axis=1, inplace=True)
+target_fit.drop('Unnamed: 0', axis=1, inplace=True)
 #------------------Importing Dataset------------------#
 
 
@@ -415,7 +417,7 @@ st.write("After which, you can press the button below to see how much your house
 
 #--------Prediction------------#
 if st.button('Predict'):
-    stacked_model.fit(train,target)
+    stacked_model.fit(train_fit,target_fit)
     predicted_price = stacked_model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
