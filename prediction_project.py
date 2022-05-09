@@ -19,27 +19,25 @@ target = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Pre
 
 
 #------------------Stacked Model----------------------#
-
-base_models = [('random_forest', RandomForestRegressor(n_estimators = 400, 
+# define the base models
+level0 = list()
+level0.append(('rf', RandomForestRegressor(n_estimators = 400, 
                                   max_depth=None, 
                                   bootstrap = False,
                                   max_features='sqrt',
                                   min_samples_leaf = 1,
                                   min_samples_split = 2,
-                                  n_jobs=-1)),
-               ('xgb', xgb.XGBRegressor(n_jobs=-1, 
+                                  n_jobs=-1)))
+level0.append(('xgb', xgb.XGBRegressor(n_jobs=-1, 
                             eta = 0.1, 
                             gamma = 4, 
                             max_depth = 4,
                             min_child_weight = 2.5, 
-                            subsample=0.75))
-               ]
-meta_model = LinearRegression()
-stacking_model = StackingRegressor(estimators=base_models, 
-                                    final_estimator=meta_model, 
-                                    passthrough=True, 
-                                    cv=5,
-                                    verbose=2)
+                            subsample=0.75)))
+# define meta learner model
+level1 = LinearRegression()
+# define the stacking ensemble
+stacked_model = StackingRegressor(estimators=level0, final_estimator=level1)
 #------------------Stacked Model----------------------#
 
 train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
@@ -417,8 +415,8 @@ st.write("After which, you can press the button below to see how much your house
 
 #--------Prediction------------#
 if st.button('Predict'):
-    stacking_model.fit(train,target)
-    predicted_price = stacking_model.predict(np.array(features))
+    stacked_model.fit(train,target)
+    predicted_price = stacked_model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
 #--------Prediction------------#
