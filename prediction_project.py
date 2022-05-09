@@ -10,7 +10,7 @@ from sklearn.ensemble import StackingRegressor
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
-import xgb
+import xgboost as xgb
 
 #------------------Stacked Model----------------------#
 
