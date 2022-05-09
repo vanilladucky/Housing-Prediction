@@ -12,6 +12,12 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
 
+#------------------Importing Dataset------------------#
+train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
+target = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_target.csv')
+#------------------Importing Dataset------------------#
+
+
 #------------------Stacked Model----------------------#
 
 base_models = [('random_forest', RandomForestRegressor(n_estimators = 400, 
@@ -411,6 +417,7 @@ st.write("After which, you can press the button below to see how much your house
 
 #--------Prediction------------#
 if st.button('Predict'):
+    stacking_model.fit(train,target)
     predicted_price = stacking_model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
