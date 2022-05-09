@@ -40,8 +40,6 @@ level0.append(('xgb', xgb.XGBRegressor(n_jobs=-1,
 level1 = LinearRegression()
 # define the stacking ensemble
 stacked_model = StackingRegressor(estimators=level0, final_estimator=level1)
-
-stacked_model.fit(train_fit,target_fit)
 #------------------Stacked Model----------------------#
 
 train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
@@ -411,6 +409,16 @@ features = [[MSSubClass,
  categorical_map['MiscFeature'][MiscFeature],
  categorical_map['SaleType'][SaleType],
  categorical_map['SaleCondition'][SaleCondition]]]
+
+st.header("Building our model")
+st.write("Press the button below before you tweak the features in order to build the model first")
+st.write("The model's parameters are already optimized and all that needs to be done is fitting the model")
+
+#--------Building------------#
+if st.button('Build'):
+    stacked_model.fit(train_fit,target_fit)
+    st.write("Model finished building")
+#--------Building------------#
 
 st.header("Predicting")
 st.write("Go ahead and alter the 79 different features that could possibly influence the price of a house.")
