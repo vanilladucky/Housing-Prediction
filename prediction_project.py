@@ -410,23 +410,16 @@ features = [[MSSubClass,
  categorical_map['SaleType'][SaleType],
  categorical_map['SaleCondition'][SaleCondition]]]
 
-st.header("Building our model")
-st.write("Press the button below before you tweak the features in order to build the model first")
-st.write("The model's parameters are already optimized and all that needs to be done is fitting the model")
-
-#--------Building------------#
-if st.button('Build'):
-    stacked_model.fit(train_fit,target_fit)
-    st.write("Model finished building")
-#--------Building------------#
-
 st.header("Predicting")
 st.write("Go ahead and alter the 79 different features that could possibly influence the price of a house.")
 st.write("If you are unsure of any of the features options, please do visit the link above where more explanation is provided.")
 st.write("After which, you can press the button below to see how much your house might cost.")
+st.write("This might take a while.")
 
 #--------Prediction------------#
 if st.button('Predict'):
+    stacked_model.fit(train_fit,target_fit)
+    st.write("Finished fitting")
     predicted_price = stacked_model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
