@@ -12,36 +12,6 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
 
-#------------------Importing Dataset------------------#
-train_fit = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
-target_fit = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_target.csv')
-train_fit.drop('Unnamed: 0', axis=1, inplace=True)
-target_fit.drop('Unnamed: 0', axis=1, inplace=True)
-#------------------Importing Dataset------------------#
-
-
-#------------------Stacked Model----------------------#
-# define the base models
-level0 = list()
-level0.append(('rf', RandomForestRegressor(n_estimators = 400, 
-                                  max_depth=None, 
-                                  bootstrap = False,
-                                  max_features='sqrt',
-                                  min_samples_leaf = 1,
-                                  min_samples_split = 2,
-                                  n_jobs=-1)))
-level0.append(('xgb', xgb.XGBRegressor(n_jobs=-1, 
-                            eta = 0.1, 
-                            gamma = 4, 
-                            max_depth = 4,
-                            min_child_weight = 2.5, 
-                            subsample=0.75)))
-# define meta learner model
-level1 = LinearRegression()
-# define the stacking ensemble
-stacked_model = StackingRegressor(estimators=level0, final_estimator=level1)
-#------------------Stacked Model----------------------#
-
 train = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/cleaned/cleaned_train.csv')
 originaltrain = pd.read_csv('https://raw.githubusercontent.com/vanilladucky/Housing-Prediction/main/data/external/train.csv')
 originaltrain.fillna('NaN', inplace=True)
@@ -414,12 +384,9 @@ st.header("Predicting")
 st.write("Go ahead and alter the 79 different features that could possibly influence the price of a house.")
 st.write("If you are unsure of any of the features options, please do visit the link above where more explanation is provided.")
 st.write("After which, you can press the button below to see how much your house might cost.")
-st.write("This might take a while.")
 
 #--------Prediction------------#
 if st.button('Predict'):
-    # stacked_model.fit(train_fit,target_fit)
-    # st.write("Finished fitting")
     loaded_model = pickle.load(open("finalized_model.sav", 'rb'))
     predicted_price = loaded_model.predict(np.array(features))
     st.write("# Your predicted home price is")
