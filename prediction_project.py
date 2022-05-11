@@ -420,7 +420,7 @@ st.write("This might take a while.")
 if st.button('Predict'):
     # stacked_model.fit(train_fit,target_fit)
     # st.write("Finished fitting")
-    loaded_model = pickle.load(open("xgboost.sav", 'rb'))
+    loaded_model = pickle.load(open("finalized_model.sav", 'rb'))
     predicted_price = loaded_model.predict(np.array(features))
     st.write("# Your predicted home price is")
     st.write("# ${:.2f}".format(predicted_price[0]))
