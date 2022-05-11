@@ -12,8 +12,11 @@ All of this are present in the notebooks folder
 Meanwhile, in the model notebook, I go onto utilize these datasets to come up with different models, varying in complexities. I went onto choose two specific algorithms which were better than the others and went onto tune their hyperparameters, and finally stacked them with linear regression for the final model, yielding the lowest error. 
 
 ## Tech used
-I utilized majority of my algorithms from scikit-learn, including methods for hyperparameter tuning. Afterwards, this whole project was deployed on Streamlit (my first time utilizing this). 
-I've decided to take this one step forward and deploy it as I wanted to understand what it's like a create a functioning application that can have potential users. I encountered some difficulties with virtual environments and requirements.txt. 
+* Python
+* Jupyter Notebook
+* Scikit-Learn
+* Matplotlib
+* Streamlit
 
 ## Web App
 https://share.streamlit.io/vanilladucky/housing-prediction/main/prediction_project.py
